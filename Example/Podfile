@@ -1,0 +1,10 @@
+target 'uber-client-ios', :exclusive => true do
+  pod "uber-client-ios", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "uber-client-ios", :path => "../"
+
+  pod 'Specta', '~> 0.2.1'
+  pod 'Expecta'
+end
