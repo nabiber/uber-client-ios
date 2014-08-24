@@ -1,5 +1,5 @@
 //
-//  Price.h
+//  UBXPriceEstimate.h
 //  Pods
 //
 //  Created by Nabib El-RAHMAN on 8/24/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Price : NSObject
+@interface UBXPriceEstimate : NSObject
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) NSString *currentCode;

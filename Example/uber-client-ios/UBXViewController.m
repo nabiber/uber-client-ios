@@ -7,8 +7,11 @@
 //
 
 #import "UBXViewController.h"
-#import <uber-client-ios/Product.h>
-#import <uber-client-ios/Price.h>
+#import <uber-client-ios/UBXProduct.h>
+#import <uber-client-ios/UBXPriceEstimate.h>
+#import <uber-client-ios/UBXTimeEstimate.h>
+#import <uber-client-ios/UBXHistory.h>
+#import <uber-client-ios/UBXUserProfile.h>
 
 
 @interface UBXViewController ()

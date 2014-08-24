@@ -1,13 +1,13 @@
 //
-//  Time.m
+//  UBXHistory.m
 //  Pods
 //
 //  Created by Nabib El-RAHMAN on 8/24/14.
 //
 //
 
-#import "Time.h"
+#import "UBXHistory.h"
 
-@implementation Time
+@implementation UBXHistory
 
 @end
