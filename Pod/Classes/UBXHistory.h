@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UBXConnecting.h"
 
-@interface UBXHistory : NSObject
+@interface UBXHistory : NSObject <UBXConnecting>
 
-@property (nonatomic, assign) int offset;
-@property (nonatomic, assign) int limit;
-@property (nonatomic, assign) int count;
+@property (nonatomic, assign) NSNumber *offset;
+@property (nonatomic, assign) NSNumber *limit;
+@property (nonatomic, assign) NSNumber *count;
 @property (nonatomic, strong) NSDictionary *history;
 
 @end

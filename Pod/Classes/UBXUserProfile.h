@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UBXConnecting.h"
 
-@interface UBXUserProfile : NSObject
+@interface UBXUserProfile : NSObject <UBXConnecting>
 
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *picture;
 @property (nonatomic, strong) NSString *promoCode;
-
 
 @end

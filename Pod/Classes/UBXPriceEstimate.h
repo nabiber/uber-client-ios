@@ -7,15 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UBXConnecting.h"
 
-@interface UBXPriceEstimate : NSObject
+@interface UBXPriceEstimate : NSObject <UBXConnecting>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) NSString *currentCode;
 @property (nonatomic, strong) NSString *displayName;
 @property (nonatomic, strong) NSString *estimate;
-@property (nonatomic, assign) int lowEstimate;
-@property (nonatomic, assign) int highEstimate;
-@property (nonatomic, assign) float surgeMultipier;
+@property (nonatomic, assign) NSNumber *lowEstimate;
+@property (nonatomic, assign) NSNumber *highEstimate;
+@property (nonatomic, assign) NSNumber *surgeMultipier;
 
 @end

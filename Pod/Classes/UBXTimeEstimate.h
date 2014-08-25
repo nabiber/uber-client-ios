@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UBXConnecting.h"
 
-@interface UBXTimeEstimate : NSObject
+@interface UBXTimeEstimate : NSObject <UBXConnecting>
+
+@property (nonatomic, strong) NSString *productId;
+@property (nonatomic, assign) NSNumber *displayName;
+@property (nonatomic, assign) NSNumber *estimate;
 
 @end

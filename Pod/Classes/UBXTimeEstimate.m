@@ -10,4 +10,18 @@
 
 @implementation UBXTimeEstimate
 
++ (NSDictionary *)mapping {
+    return @{@"product_id": @"productId",
+             @"display_name": @"displayName",
+             @"estimate": @"estimate"};
+}
+
++ (NSString *)resourceName {
+    return @"time";
+}
+
++ (NSString *)resourcePath {
+    return @"/v1/estimates/time";
+}
+
 @end
