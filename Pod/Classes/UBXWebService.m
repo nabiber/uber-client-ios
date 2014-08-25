@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         // Custom initialization
+        [self _configureRestKit];
     }
     return self;
 }
