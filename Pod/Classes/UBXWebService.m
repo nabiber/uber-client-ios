@@ -15,9 +15,13 @@
 #import "UBXConnecting.h"
 #import "RestKit.h"
 
-@implementation UBXWebService {
-    BOOL _restKitInitialized;
-}
+#define WEB_SERVICE_TIMEOUT 60
+
+NSString * const UBXErrorDomainWebService = @"UBXWebServiceErrorDomain";
+
+const int UBXErrorCodeTimeout = 1;
+
+@implementation UBXWebService
 
 - (instancetype)init {
     self = [super init];
@@ -29,7 +33,8 @@
 }
 
 - (void)_configureRestKit {
-    if (!_restKitInitialized) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         // Initialize AFNetworking HTTPClient
         NSURL *baseURL = [NSURL URLWithString:@"https://api.uber.com"];
         AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:baseURL];
@@ -53,40 +58,54 @@
                                                     statusCodes:[NSIndexSet indexSetWithIndex:200]];
             [objectManager addResponseDescriptor:responseDescriptor];
         }
-        _restKitInitialized = YES;
-    }
+    });
 }
 
-- (id)_getResource:(NSString *)resource {
+- (id)_getResource:(NSString *)resource error:(NSError **)error {
     __block id data = nil;
     dispatch_semaphore_t dsema = dispatch_semaphore_create(0);
     [self _getResource:resource success:^(id resources) {
         data = resources;
         dispatch_semaphore_signal(dsema);
-    } failures:nil];
-    dispatch_semaphore_wait(dsema, DISPATCH_TIME_FOREVER);
+    } failures:^(NSError *error) {
+        if (error) {
+            error = error;
+        }
+    }];
+    
+    if (dispatch_semaphore_wait(dsema, dispatch_time(DISPATCH_TIME_NOW, WEB_SERVICE_TIMEOUT * NSEC_PER_SEC))) {
+        // Timeout occurred
+        if (error) {
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Operation was unsuccessful.", nil),
+                                       NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The operation timed out.", nil),
+                                       NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Have you tried turning it off and on again?", nil)};
+            *error = [NSError errorWithDomain:UBXErrorDomainWebService
+                                        code:UBXErrorCodeTimeout
+                                    userInfo:userInfo];
+        }
+    }
     
     return data;
 }
 
-- (NSArray *)products {
-    return [self _getResource:[UBXProduct resourcePath]];
+- (NSArray *)getProducts:(NSError **)error {
+    return [self _getResource:[UBXProduct resourcePath] error:error];
 }
 
-- (NSArray *)priceEstimates {
-    return [self _getResource:[UBXPriceEstimate resourcePath]];
+- (NSArray *)getPriceEstimates:(NSError **)error {
+    return [self _getResource:[UBXPriceEstimate resourcePath] error:error];
 }
 
-- (NSArray *)timeEstimates {
-    return [self _getResource:[UBXTimeEstimate resourcePath]];
+- (NSArray *)getTimeEstimates:(NSError **)error {
+    return [self _getResource:[UBXTimeEstimate resourcePath] error:error];
 }
 
-- (UBXHistory *)history {
-    return [self _getResource:[UBXHistory resourcePath]];
+- (UBXHistory *)getHistory:(NSError **)error {
+    return [self _getResource:[UBXHistory resourcePath] error:error];
 }
 
-- (UBXUserProfile *)userProfile {
-    return [self _getResource:[UBXUserProfile resourcePath]];
+- (UBXUserProfile *)getUserProfile:(NSError **)error {
+    return [self _getResource:[UBXUserProfile resourcePath] error:error];
 }
 
 - (void)_getResource:(NSString *)resource success:(void (^)(id resources))success failures:(void (^)(NSError *error))failure {
@@ -103,23 +122,23 @@
     }];
 }
 
-- (void)productsWithSuccess:(void (^)(NSArray *resources))success failure:(void (^)(NSError *error))failure {
+- (void)getProductsWithSuccess:(void (^)(NSArray *resources))success failure:(void (^)(NSError *error))failure {
     [self _getResource:[UBXProduct resourcePath] success:success failures:failure];
 }
 
-- (void)priceEstimatesWithSuccess:(void (^)(NSArray *resources))success failure:(void (^)(NSError *error))failure {
+- (void)getPriceEstimatesWithSuccess:(void (^)(NSArray *resources))success failure:(void (^)(NSError *error))failure {
     [self _getResource:[UBXPriceEstimate resourcePath] success:success failures:failure];
 }
 
-- (void)timeEstimatesWithSuccess:(void (^)(NSArray *resources))success failure:(void (^)(NSError *error))failure {
+- (void)getTimeEstimatesWithSuccess:(void (^)(NSArray *resources))success failure:(void (^)(NSError *error))failure {
     [self _getResource:[UBXTimeEstimate resourcePath] success:success failures:failure];
 }
 
-- (void)historyWithSuccess:(void (^)(UBXHistory *resource))success failure:(void (^)(NSError *error))failure {
+- (void)getHistoryWithSuccess:(void (^)(UBXHistory *resource))success failure:(void (^)(NSError *error))failure {
     [self _getResource:[UBXHistory resourcePath] success:success failures:failure];
 }
 
-- (void)userProfileWithSuccess:(void (^)(UBXUserProfile *resource))success failure:(void (^)(NSError *error))failure {
+- (void)getUserProfileWithSuccess:(void (^)(UBXUserProfile *resource))success failure:(void (^)(NSError *error))failure {
     [self _getResource:[UBXUserProfile resourcePath] success:success failures:failure];
 }
 
