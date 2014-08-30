@@ -3,6 +3,7 @@ PODS:
   - Expecta (0.3.1)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
+  - NXOAuth2Client (1.2.6)
   - RestKit (0.23.3):
     - RestKit/Core
   - RestKit/Core (0.23.3):
@@ -27,6 +28,7 @@ PODS:
   - Specta (0.2.1)
   - TransitionKit (2.1.0)
   - uber-client-ios (0.1.0):
+    - NXOAuth2Client (~> 1.2.6)
     - RestKit (~> 0.23)
 
 DEPENDENCIES:
@@ -42,11 +44,12 @@ SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
   ISO8601DateFormatterValueTransformer: a705384ea6531255258e25b6480ba1180db703a0
+  NXOAuth2Client: f9a3efde1cce92c92fd1518070caf305bd363ef4
   RestKit: 193a35cddae5198388977abaedad129f8acb978b
   RKValueTransformers: b705e7b4651b9206b94600408462b74554bba969
   SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
   Specta: 9141310f46b1f68b676650ff2854e1ed0b74163a
   TransitionKit: 6a6f3ddda38ae758778aa889dcb930e4f8d64edc
-  uber-client-ios: 025033707640e5f5b49d82af0427ecedc0e9b759
+  uber-client-ios: c6161bf6f46aaeb2adb12f3b15a44c19c0395d0b
 
 COCOAPODS: 0.33.1

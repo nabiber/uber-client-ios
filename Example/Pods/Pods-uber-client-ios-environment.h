@@ -18,6 +18,12 @@
 #define COCOAPODS_VERSION_MINOR_ISO8601DateFormatterValueTransformer 6
 #define COCOAPODS_VERSION_PATCH_ISO8601DateFormatterValueTransformer 0
 
+// NXOAuth2Client
+#define COCOAPODS_POD_AVAILABLE_NXOAuth2Client
+#define COCOAPODS_VERSION_MAJOR_NXOAuth2Client 1
+#define COCOAPODS_VERSION_MINOR_NXOAuth2Client 2
+#define COCOAPODS_VERSION_PATCH_NXOAuth2Client 6
+
 // RKValueTransformers
 #define COCOAPODS_POD_AVAILABLE_RKValueTransformers
 #define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1
