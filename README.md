@@ -20,7 +20,8 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-Nabib El-Rahman, nabib.el-rahman@dailymotion.com
+Nabib El-Rahman, nabiber@gmail.com
+Sayeem Hussain, sayeem88@gmail.com
 
 ## License
 
